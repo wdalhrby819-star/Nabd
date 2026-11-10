@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>نَبض | الرعاية العصبية الذكية</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="topline">
+      <div class="brand">
+        <div class="brandmark" aria-hidden="true"><svg viewBox="0 0 40 40" width="27" height="27" fill="none"><path d="M4 21h7l4-10 7 20 5-13 3 3h6" stroke="white" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="brandname">نَبض</div><div class="brandtag">رفيقك للرصد العصبي المبكر</div></div>
+      </div>
+      <div class="top-actions"><button class="iconbtn" aria-label="التنبيهات" onclick="showPage('alerts')">♧</button><button class="iconbtn" aria-label="الملف الشخصي" onclick="showPage('profile')">◉</button></div>
+    </div>
+  </header>
+  <main>
+    <section class="page active" id="home">
+      <div class="welcome"><div><h1>مرحباً بك 👋</h1><div class="sub">تابع مؤشراتك الصحية وسجلّك العصبي من مكان واحد.</div></div><div class="datepill" id="today">اليوم</div></div>
+      <div class="notice"><div>ⓘ</div><div><strong>نموذج تجريبي للعرض</strong>الأرقام والقراءات في هذا النموذج افتراضية لتوضيح شكل التطبيق، ولا تأتي من مستشعر حقيقي ولا تُستخدم للتشخيص أو التنبؤ الطبي.</div></div>
+      <div class="emergency-bar" role="region" aria-label="الطوارئ"><div><strong>تحتاج مساعدة طارئة؟</strong><span>إذا ظهرت أعراض مفاجئة وخطيرة، لا تنتظر التطبيق.</span></div><a class="emergency-btn" href="tel:997" aria-label="الاتصال بالإسعاف على 997">اتصل بالإسعاف 997</a></div>
+      <div class="grid">
+        <article class="card status-card">
+          <div class="cardhead"><div class="cardtitle">ملخص حالتك</div><span class="tag">بيانات تجريبية</span></div>
+          <div class="status-main"><div class="status-ring"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7.5c0 5-8 10-8 10s-8-5-8-10a4 4 0 0 1 8-1.5 4 4 0 0 1 8 1.5Z" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h5l2-4 3 8 2-4h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><div class="status-word">لا توجد تنبيهات</div><div class="status-desc">هذه حالة عرض افتراضية. لا تعني أن الحالة الطبية سليمة.</div></div></div>
+          <div class="health-message" id="healthMessage" aria-live="polite"><strong>الحمد لله، الأمور مستقرة.</strong><br>المؤشرات التجريبية المعروضة لا تُظهر تنبيهًا في هذا النموذج. استمر في متابعة حالتك وتسجيل أي أعراض.</div>
+          <label class="field" style="margin-top:10px">حالة العرض التجريبي<select class="demo-select" id="healthDemoState" onchange="updateHealthStatus()"><option value="stable">حالة مستقرة</option><option value="review">مؤشر يحتاج إلى مراجعة</option></select></label>
+          <div class="connection"><div><span class="dot" id="connectionDot"></span><span id="connectionText">الرقعة غير متصلة</span></div><button class="btn" id="connectBtn" onclick="toggleConnect()">اتصال بالرقعة</button></div>
+        </article>
+        <article class="card metrics-card">
+          <div class="cardhead"><div class="cardtitle">مؤشرات الرقعة</div><button class="small-link" onclick="showPage('metrics')">عرض التفاصيل ←</button></div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-top"><span>معدل ضربات القلب PPG</span><span class="metric-icon">♥</span></div><div class="metric-value">72</div><div class="metric-unit">نبضة / دقيقة</div><div class="metric-state">● قراءة توضيحية</div></div>
+            <div class="metric"><div class="metric-top"><span>النشاط العضلي EMG</span><span class="metric-icon">〰</span></div><div class="metric-value">قيد الرصد</div><div class="metric-unit">إشارة عضلية</div><div class="metric-state">● يتطلب معايرة</div></div>
+            <div class="metric"><div class="metric-top"><span>الإشارات الصوتية</span><span class="metric-icon">♫</span></div><div class="metric-value">قيد التحليل</div><div class="metric-unit">الميكروفون الطبي</div><div class="metric-state">● قراءة توضيحية</div></div>
+            <div class="metric"><div class="metric-top"><span>الحركة والاهتزاز</span><span class="metric-icon">↝</span></div><div class="metric-value">قيد الرصد</div><div class="metric-unit">أنماط الحركة</div><div class="metric-state">● تتطلب مستشعر حركة</div></div>
+            <div class="metric"><div class="metric-top"><span>سجل الصداع النصفي</span><span class="metric-icon">✦</span></div><div class="metric-value">المدة والشدة</div><div class="metric-unit">من سجل الأعراض</div><div class="metric-state">● تسجيل المستخدم</div></div>
+            <div class="metric"><div class="metric-top"><span>مؤشرات نوبات الصرع</span><span class="metric-icon">⌁</span></div><div class="metric-value">قيد الدراسة</div><div class="metric-unit">تحتاج إلى فحص سريري</div><div class="metric-state">● ليست أداة تشخيص</div></div>
+          </div>
+        </article>
+        <article class="card full">
+          <div class="cardhead"><div class="cardtitle">ما الذي تتابعه نَبض؟</div><span class="tag">3 مسارات متابعة</span></div>
+          <div class="condition-list">
+            <div class="condition"><div class="condition-icon">🧠</div><b>مؤشرات مرتبطة بالجلطة</b><span>متابعة إشارات حيوية وأنماط تستحق الانتباه، دون ادعاء التنبؤ المؤكد بالجلطة.</span></div>
+            <div class="condition"><div class="condition-icon">✨</div><b>الصداع النصفي</b><span>تسجيل شدة الصداع ومدته ومحفزاته وربطها بالقراءات بمرور الوقت.</span></div>
+            <div class="condition"><div class="condition-icon">〰️</div><b>نشاط مرتبط بالصرع</b><span>استكشاف أنماط الحركة والإشارات العضلية، ويحتاج ذلك إلى تحقق سريري.</span></div>
+          </div>
+        </article>
+        <article class="card half">
+          <div class="cardhead"><div class="cardtitle">ملخص النبض</div><button class="small-link" onclick="showPage('metrics')">التفاصيل</button></div>
+          <div class="chart-wrap"><svg class="chart-svg" viewBox="0 0 420 105" preserveAspectRatio="none" aria-label="رسم توضيحي لمعدل النبض"><path d="M0 78H420M0 52H420M0 26H420" stroke="currentColor" opacity=".10" stroke-dasharray="4 5"/><path d="M0 61 C25 58 25 48 48 54 S80 69 103 50 S139 45 160 54 S193 65 216 42 S250 49 273 54 S310 66 331 46 S375 52 420 35" fill="none" stroke="#0A9694" stroke-width="3" stroke-linecap="round"/><path d="M0 61 C25 58 25 48 48 54 S80 69 103 50 S139 45 160 54 S193 65 216 42 S250 49 273 54 S310 66 331 46 S375 52 420 35 L420 105 L0 105Z" fill="#0A9694" opacity=".09"/></svg><div class="chart-labels"><span>٨ ص</span><span>١٢ م</span><span>٤ م</span><span>الآن</span></div></div>
+          <div class="sub" style="margin-top:9px">منحنى افتراضي للتوضيح فقط.</div>
+        </article>
+        <article class="card half">
+          <div class="cardhead"><div class="cardtitle">آخر نشاط</div><button class="small-link" onclick="showPage('diary')">فتح السجل</button></div>
+          <div id="recentActivity"><div class="log-row"><div><b>لا توجد إدخالات بعد</b><div class="log-meta">يمكنك تسجيل أعراضك من سجل المتابعة</div></div><span>＋</span></div></div>
+          <button class="btn secondary" style="width:100%;margin-top:8px" onclick="showPage('diary')">＋ تسجيل عرض</button>
+        </article>
+      </div>
+      <p class="footer-note">القراءات افتراضية. مؤشرات الصرع وأنماط الإشارات لا تُستخدم للتشخيص أو التنبؤ قبل التحقق السريري.</p>
+    </section>
+    <section class="page" id="metrics">
+      <div class="welcome"><div><h1>المؤشرات الصحية</h1><div class="sub">تفاصيل القراءات التي يمكن أن تدعمها الرقعة بعد تطوير المستشعرات والتحقق منها.</div></div></div>
+      <div class="notice"><div>ⓘ</div><div><strong>القراءات التالية افتراضية</strong>تُعرض لتوضيح تجربة الاستخدام فقط. بعض المؤشرات تتطلب مستشعرات إضافية، ولا يمكن استنتاج تشخيص عصبي منها بمفردها.</div></div>
+      <div class="grid">
+        <article class="card full"><div class="cardhead"><div class="cardtitle">مؤشرات الرقعة</div><span class="tag">عرض تجريبي</span></div><div class="metrics">
+          <div class="metric"><div class="metric-top"><span>معدل ضربات القلب PPG</span><span>♥</span></div><div class="metric-value">72</div><div class="metric-unit">نبضة / دقيقة</div></div>
+          <div class="metric"><div class="metric-top"><span>النشاط العضلي EMG</span><span>〰</span></div><div class="metric-value">قيد الرصد</div><div class="metric-unit">يتطلب معايرة المستشعر</div></div>
+          <div class="metric"><div class="metric-top"><span>الإشارات الصوتية</span><span>♫</span></div><div class="metric-value">قيد التحليل</div><div class="metric-unit">الميكروفون الطبي</div></div>
+          <div class="metric"><div class="metric-top"><span>أنماط الحركة والاهتزاز</span><span>↝</span></div><div class="metric-value">قيد الرصد</div><div class="metric-unit">تتطلب مستشعر حركة مناسبًا</div></div>
+          <div class="metric"><div class="metric-top"><span>سجل الصداع النصفي</span><span>✦</span></div><div class="metric-value">المدة والشدة</div><div class="metric-unit">يُسجل من صفحة الأعراض</div></div>
+          <div class="metric"><div class="metric-top"><span>مؤشرات رصد نوبات الصرع</span><span>⌁</span></div><div class="metric-value">قيد الدراسة</div><div class="metric-unit">تحتاج إلى فحص سريري</div></div>
+        </div></article>
+        <article class="card full"><div class="cardhead"><div class="cardtitle">كيف تُستخدم البيانات؟</div></div><div class="log-row"><div><b>رصد التغير عن خط الأساس الشخصي</b><div class="log-meta">مقارنة القراءات بتاريخ المستخدم بعد جمع بيانات كافية.</div></div><span>01</span></div><div class="log-row"><div><b>ربط المؤشرات بالأعراض المسجلة</b><div class="log-meta">مثل الصداع، الدوار، أو تغير الإحساس.</div></div><span>02</span></div><div class="log-row"><div><b>تنبيه للمراجعة عند الحاجة</b><div class="log-meta">وفق خوارزمية مختبرة وإشراف طبي، لا تشخيص آلي.</div></div><span>03</span></div></article>
+      </div>
+    </section>
+    <section class="page" id="diary">
+      <div class="welcome"><div><h1>سجل الأعراض</h1><div class="sub">سجّل ما تشعر به لمتابعة النمط مع الوقت.</div></div></div>
+      <article class="card">
+        <div class="cardhead"><div class="cardtitle">إضافة تسجيل جديد</div><span class="tag">سجل شخصي</span></div>
+        <form id="symptomForm">
+          <div class="formgrid">
+            <label class="field">نوع العرض<select id="symptom" required><option value="الصداع النصفي">الصداع النصفي</option><option value="الدوار">الدوار</option><option value="اضطراب الرؤية">اضطراب الرؤية</option><option value="تنميل أو ضعف">تنميل أو ضعف</option><option value="أعراض أخرى">أعراض أخرى</option></select></label>
+            <label class="field">شدة العرض<select id="severity"><option>خفيف</option><option selected>متوسط</option><option>شديد</option></select></label>
+            <label class="field">المدة التقريبية<input id="duration" placeholder="مثال: 30 دقيقة" /></label>
+            <label class="field">وقت البداية<input id="startTime" type="time" /></label>
+            <label class="field fullfield">ملاحظات إضافية<input id="notes" placeholder="مثال: بعد قلة النوم أو التعرض للضوء" /></label>
+          </div>
+          <div class="actions"><button class="btn" type="submit">حفظ في السجل</button><button class="btn secondary" type="reset">مسح الحقول</button></div>
+        </form>
+      </article>
+      <article class="card" style="margin-top:15px"><div class="cardhead"><div class="cardtitle">سجل المتابعة</div><span class="tag" id="entryCount">0 تسجيلات</span></div><div id="diaryList" class="empty">لم تتم إضافة تسجيلات بعد.</div></article>
+      <p class="footer-note">هذا السجل للمساعدة في توثيق الأعراض ومناقشتها مع الطبيب، ولا يُعد بديلاً عن التقييم الطبي.</p>
+    </section>
+    <section class="page" id="alerts">
+      <div class="welcome"><div><h1>التنبيهات والإرشادات</h1><div class="sub">معلومات توعوية حول متى ينبغي طلب المساعدة.</div></div></div>
+      <article class="card"><div class="cardhead"><div class="cardtitle">تنبيهات مهمة</div><span class="tag">إرشادات سلامة</span></div>
+        <div class="alert-item"><div class="alert-symbol">!</div><div><b>علامات السكتة الدماغية المحتملة</b><p>هبوط مفاجئ في الوجه، ضعف مفاجئ في الذراع، اضطراب مفاجئ في الكلام أو الرؤية أو التوازن. اتصل بالإسعاف فورًا ولا تنتظر قراءة التطبيق.</p></div></div>
+        <div class="alert-item"><div class="alert-symbol">♥</div><div><b>صداع مفاجئ وشديد جدًا</b><p>إذا كان الصداع مفاجئًا وغير معتاد أو مصحوبًا بأعراض عصبية جديدة، اطلب الرعاية الطارئة فورًا.</p></div></div>
+        <div class="alert-item"><div class="alert-symbol">＋</div><div><b>بعد نوبة تشنج</b><p>اطلب الإسعاف إذا استمرت النوبة خمس دقائق أو أكثر، أو تكررت دون استعادة الوعي، أو حدثت صعوبة في التنفس أو إصابة.</p></div></div>
+      </article>
+      <p class="footer-note">التطبيق في صورته الحالية نموذج توضيحي، ولا يرسل تنبيهات طبية حقيقية أو يتصل بخدمات الطوارئ.</p>
+    </section>
+    <section class="page" id="profile">
+      <div class="welcome"><div><h1>حسابي وإعداداتي</h1><div class="sub">إعدادات نموذج نَبض التجريبي.</div></div></div>
+      <article class="card"><div class="cardhead"><div class="cardtitle">الملف الشخصي</div></div><div class="log-row"><b>الاسم</b><span class="sub">مستخدم نَبض</span></div><div class="log-row"><b>اللغة</b><span class="sub">العربية</span></div><div class="log-row"><b>الجهاز</b><span class="sub" id="deviceState">غير متصل</span></div><div class="log-row"><b>نسخة التطبيق</b><span class="sub">نموذج أولي 0.1</span></div></article>
+      <article class="card" style="margin-top:15px"><div class="cardhead"><div class="cardtitle">البيانات الصحية للمستخدم</div><span class="tag">اختياري</span></div>
+        <form id="patientInfoForm"><div class="formgrid">
+          <label class="field">العمر<input id="patientAge" type="number" min="1" max="120" placeholder="العمر بالسنوات" /></label>
+          <label class="field">الجنس<select id="patientGender"><option value="">اختاري</option><option>أنثى</option><option>ذكر</option><option>أفضل عدم الإفصاح</option></select></label>
+          <label class="field fullfield">الأدوية الحالية<input id="patientMeds" placeholder="اكتبي الأدوية والجرعات إن رغبتِ" /></label>
+          <label class="field fullfield">أمراض أو حالات صحية أخرى<input id="patientConditions" placeholder="اكتبي أي أمراض أو حالات أخرى" /></label>
+        </div><div class="actions"><button class="btn" type="submit">حفظ البيانات</button><button class="btn secondary" type="reset">مسح الحقول</button></div><p id="patientSaveMsg" class="sub" aria-live="polite"></p></form>
+      </article>
+      <article class="card" style="margin-top:15px"><div class="cardtitle">عن نَبض</div><p class="sub" style="line-height:2">نَبض واجهة أولية لمنظومة رقعة ذكية مقترحة لمتابعة بعض المؤشرات الحيوية والعصبية وتوثيق الأعراض، بهدف دعم المتابعة الصحية المبكرة.</p></article>
+    </section>
+  </main>
+  <nav class="nav"><div class="navinner">
+    <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>الرئيسية</button>
+    <button data-page="metrics" onclick="showPage('metrics')"><span>▥</span>المؤشرات</button>
+    <button data-page="diary" onclick="showPage('diary')"><span>▤</span>سجل الأعراض</button>
+    <button data-page="profile" onclick="showPage('profile')"><span>◉</span>حسابي</button>
+  </div></nav>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
